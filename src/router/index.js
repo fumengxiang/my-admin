@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/login'
+import Login from '@/views/login'
+import Home from '@/views/home'
+import Layout from '@/views/layout'
 
 Vue.use(VueRouter)
 
@@ -14,6 +16,22 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/layout',
+    // name: 'layout', 加上此属性会有警告出现，因为为一级路由设置了默认子路由，实际访问的是默认的子路由，而不是一级路由，此时的name属性没有意义
+    component: Layout,
+    children: [
+      {
+        path: '',
+        redirect: '/home'
+      },
+      {
+        path: '/home',
+        name: 'home',
+        component: Home
+      }
+    ]
   }
 ]
 
